@@ -1,15 +1,19 @@
-package br.edu.ifrs.itextpdf.util;
+package br.edu.ifrs.itextpdf.utils;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
+import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 import br.edu.ifrs.itextpdf.model.Aluno;
 
 public class PDFUtil {
@@ -25,7 +29,7 @@ public class PDFUtil {
 
 		try {
 			PdfWriter writer = PdfWriter.getInstance(document,
-							new FileOutputStream(aluno.getNome() + " " + new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + ".pdf"));
+							new FileOutputStream(aluno.getNome() + "-" + new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + ".pdf"));
 			document.open();
 
 			Image imagem = Image.getInstance("logo_vertical.png");
@@ -48,9 +52,22 @@ public class PDFUtil {
 		}
 	}
 
-	public static List<Aluno> lerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public static void lerPdf(String nome) {
+		try {
+			PdfReader pdfReader = new PdfReader(nome + ".pdf");
+			PdfReaderContentParser parser = new PdfReaderContentParser(pdfReader);
+			TextExtractionStrategy strategy;
+
+			for (int i = 1; i <= pdfReader.getNumberOfPages(); i++) {
+				strategy = parser.processContent(i, new SimpleTextExtractionStrategy());
+				System.out.println(strategy.getResultantText());
+
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

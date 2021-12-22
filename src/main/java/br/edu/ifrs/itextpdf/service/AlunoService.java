@@ -1,9 +1,8 @@
 package br.edu.ifrs.itextpdf.service;
 
-import java.util.List;
 import java.util.Scanner;
 import br.edu.ifrs.itextpdf.model.Aluno;
-import br.edu.ifrs.itextpdf.util.PDFUtil;
+import br.edu.ifrs.itextpdf.utils.PDFUtil;
 
 public class AlunoService {
 
@@ -38,25 +37,11 @@ public class AlunoService {
 	}
 
 	public void getAlunoById() {
-		System.out.println("ID");
-		long id = sc.nextLong();
+		System.out.println("Nome do arquivo");
+		String nome = sc.next();
 
-		List<Aluno> alunos = PDFUtil.lerTodos();
+		PDFUtil.lerPdf(nome);
 
-		for (Aluno aluno : alunos) {
-			if (aluno.getId() == id) {
-				System.out.println(aluno);
-			}
-		}
-
-	}
-
-	public void getAlunos() {
-		List<Aluno> alunos = PDFUtil.lerTodos();
-
-		for (Aluno aluno : alunos) {
-			System.out.println(aluno);
-		}
 	}
 
 }

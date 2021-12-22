@@ -2,7 +2,6 @@ package br.edu.ifrs.itextpdf.utils;
 
 import java.util.Scanner;
 import br.edu.ifrs.itextpdf.service.AlunoService;
-import br.edu.ifrs.itextpdf.util.PDFUtil;
 
 public class MenuUtil {
 
@@ -15,7 +14,7 @@ public class MenuUtil {
 		while (true) {
 			System.out.println("REGISTRO");
 			System.out.println("(1) - Criar aluno");
-			System.out.println("(2) - Mostrar alunos");
+			System.out.println("(2) - Mostrar aluno");
 			System.out.println("(0) - Salvar e sair");
 
 			int op = sc.nextInt();
@@ -24,7 +23,7 @@ public class MenuUtil {
 				alunoService.criarAluno();
 			} else
 				if (op == 2) {
-					alunoService.getAlunos();
+					alunoService.getAlunoById();
 				} else
 					if (op == 0) {
 						PDFUtil.salvar();
